@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Tô Quốc Hùng</title>
+  <meta name="description" content="Tô Quốc Hùng — Sinh viên Logistics & Supply Chain | Basketball Coach | Đam mê công nghệ" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+
+  <!-- Spline 3D viewer -->
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.0/build/spline-viewer.js"></script>
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- ========== CURSOR ========== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ========== NAV ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-bracket">&lt;</span>TÔ QUỐC HÙNG<span class="logo-bracket">/&gt;</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero"      class="nav-link" data-i18n="nav_home">Home</a></li>
+      <li><a href="#about"     class="nav-link" data-i18n="nav_about">About</a></li>
+      <li><a href="#skills"    class="nav-link" data-i18n="nav_skills">Skills</a></li>
+      <li><a href="#workstyle" class="nav-link" data-i18n="nav_workstyle">Work Style</a></li>
+      <li><a href="#projects"  class="nav-link" data-i18n="nav_projects">Activities</a></li>
+      <li><a href="#contact"   class="nav-link" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+
+    <!-- Language toggle -->
+    <button class="lang-toggle" id="langToggle" title="Switch language">
+      <span class="lang-vi active">VI</span>
+      <span class="lang-divider">|</span>
+      <span class="lang-en">EN</span>
+    </button>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <!-- Spline 3D Background -->
+    <div class="spline-container" id="splineContainer">
+      <spline-viewer
+        url="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"
+        loading-anim-type="none"
+      ></spline-viewer>
+    </div>
+
+    <!-- Particle canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Hero content -->
+    <div class="hero-content" id="heroContent">
+      <div class="hero-tag" data-gsap="fadeUp">
+        <span class="dot"></span>
+        <span data-i18n="hero_tag">Sẵn sàng cho cơ hội mới</span>
+      </div>
+      <h1 class="hero-title" data-gsap="fadeUp">
+        <span class="line" data-i18n="hero_greeting">Xin chào, tôi là</span>
+        <span class="line name-gradient">Tô Quốc Hùng</span>
+      </h1>
+      <p class="hero-subtitle" data-gsap="fadeUp">
+        <span id="typedText"></span><span class="cursor-blink">|</span>
+      </p>
+      <div class="hero-cta" data-gsap="fadeUp">
+        <a href="#projects" class="btn btn-primary">
+          <span data-i18n="hero_btn1">Xem hoạt động</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="#contact" class="btn btn-outline">
+          <span data-i18n="hero_btn2">Liên hệ</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Video giữa trang -->
+    <div class="hero-video-wrapper" id="heroVideo">
+      <div class="hero-video-frame">
+        <video src="assets/grok.mp4" autoplay muted loop playsinline class="hero-video"></video>
+        <div class="hero-video-glow"></div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="about_tag">01 — About</span>
+        <h2 class="section-title">
+          <span data-i18n="about_title">Về</span>
+          <span class="highlight" data-i18n="about_highlight">tôi</span>
+        </h2>
+      </div>
+
+      <div class="about-grid">
+        <!-- Avatar 3D card -->
+        <div class="about-visual" id="aboutCard">
+          <div class="card-3d" id="card3d">
+            <div class="card-inner">
+              <div class="avatar-placeholder">
+                <img src="assets/img/ava.jpg" alt="Tô Quốc Hùng" class="avatar-img" />
+                <div class="avatar-glow"></div>
+              </div>
+              <div class="card-badge card-badge-1">
+                <i class="fa-solid fa-basketball"></i> Coach
+              </div>
+              <div class="card-badge card-badge-2">
+                <i class="fa-solid fa-robot"></i> AI Tools
+              </div>
+              <div class="card-badge card-badge-3">
+                <i class="fa-solid fa-truck-fast"></i> Logistics
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- About text -->
+        <div class="about-text">
+          <div class="about-name-row">
+            <h3 class="about-name">Tô Quốc Hùng</h3>
+            <span class="about-dob">
+              <i class="fa-solid fa-cake-candles"></i>
+              <span data-i18n="about_dob">Sinh năm 2005</span>
+            </span>
+          </div>
+          <p class="about-intro" data-i18n-html="about_intro">
+            Tôi là sinh viên năm 3 ngành <strong>Logistics &amp; Supply Chain</strong> — một người
+            luôn chủ động học hỏi, nhiệt tình trong mọi việc và sẵn sàng thích nghi với môi
+            trường mới nhanh chóng.
+          </p>
+          <p class="about-body" data-i18n-html="about_body">
+            Ngoài học thuật, tôi còn là một <strong>Basketball Coach</strong> — nơi tôi rèn luyện
+            tư duy lãnh đạo, tinh thần đồng đội và khả năng ra quyết định dưới áp lực.
+            Tôi đam mê công nghệ và ứng dụng các công cụ AI hiện đại vào công việc thực tiễn.
+          </p>
+
+          <div class="about-strengths">
+            <div class="strength-item">
+              <i class="fa-solid fa-fire"></i>
+              <span data-i18n="strength_1">Ham học hỏi</span>
+            </div>
+            <div class="strength-item">
+              <i class="fa-solid fa-heart"></i>
+              <span data-i18n="strength_2">Nhiệt tình</span>
+            </div>
+            <div class="strength-item">
+              <i class="fa-solid fa-bolt"></i>
+              <span data-i18n="strength_3">Nhanh nhẹn</span>
+            </div>
+          </div>
+
+          <div class="about-stats">
+            <div class="stat-item">
+              <span class="stat-number" data-target="3">0</span>
+              <span class="stat-label" data-i18n="stat_1_label">Năm học</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="2005">0</span>
+              <span class="stat-label" data-i18n="stat_2_label">Năm sinh</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="100">0</span>
+              <span class="stat-label" data-i18n="stat_3_label">% Nhiệt huyết</span>
+            </div>
+          </div>
+
+          <div class="about-links">
+            <a href="mailto:tohungg2005@gmail.com" class="social-link" title="Email">
+              <i class="fa-solid fa-envelope"></i>
+            </a>
+            <a href="https://fb.com/hung.to05" target="_blank" class="social-link" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="tel:0941428859" class="social-link" title="0941 428 859">
+              <i class="fa-solid fa-phone"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SKILLS ========== -->
+  <section class="skills section" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="skills_tag">02 — Skills</span>
+        <h2 class="section-title">
+          <span data-i18n="skills_title">Kỹ</span>
+          <span class="highlight" data-i18n="skills_highlight">năng</span>
+        </h2>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="skill-card" data-delay="0">
+          <div class="skill-card-icon"><i class="fa-solid fa-robot"></i></div>
+          <h3 class="skill-card-title" data-i18n="skill1_title">AI & Công cụ số</h3>
+          <p class="skill-card-desc" data-i18n="skill1_desc">Sử dụng thành thạo các công cụ AI hiện đại và phần mềm thiết kế để tối ưu công việc</p>
+          <div class="skill-tags">
+            <span class="tag">ChatGPT</span>
+            <span class="tag">Gemini</span>
+            <span class="tag">Copilot</span>
+            <span class="tag">Canva</span>
+          </div>
+        </div>
+
+        <div class="skill-card" data-delay="100">
+          <div class="skill-card-icon"><i class="fa-solid fa-table-cells"></i></div>
+          <h3 class="skill-card-title" data-i18n="skill2_title">Office & Văn phòng</h3>
+          <p class="skill-card-desc" data-i18n="skill2_desc">Thành thạo bộ công cụ văn phòng Microsoft — soạn thảo, lập bảng tính và thiết kế thuyết trình chuyên nghiệp</p>
+          <div class="skill-tags">
+            <span class="tag">Word</span>
+            <span class="tag">Excel</span>
+            <span class="tag">PowerPoint</span>
+          </div>
+        </div>
+
+        <div class="skill-card" data-delay="200">
+          <div class="skill-card-icon"><i class="fa-solid fa-people-group"></i></div>
+          <h3 class="skill-card-title" data-i18n="skill3_title">Kỹ năng mềm</h3>
+          <p class="skill-card-desc" data-i18n="skill3_desc">Tư duy phân tích, lập kế hoạch bài bản — kết hợp khả năng giải quyết vấn đề linh hoạt và giao tiếp, đàm phán hiệu quả trong mọi tình huống</p>
+          <div class="skill-tags">
+            <span class="tag" data-i18n="stag3_1">Phân tích & Lập kế hoạch</span>
+            <span class="tag" data-i18n="stag3_2">Giải quyết vấn đề</span>
+            <span class="tag" data-i18n="stag3_3">Giao tiếp & Đàm phán</span>
+            <span class="tag" data-i18n="stag3_4">Tư duy linh hoạt</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tech-orbit-wrapper">
+        <div class="tech-orbit-title" data-i18n="orbit_title">Công cụ thường dùng</div>
+        <div class="tech-orbit" id="techOrbit">
+          <div class="orbit-center"><i class="fa-solid fa-toolbox"></i></div>
+          <div class="orbit orbit-1">
+            <div class="orbit-item" style="--angle:0deg"><span>Word</span></div>
+            <div class="orbit-item" style="--angle:72deg"><span>Excel</span></div>
+            <div class="orbit-item" style="--angle:144deg"><span>PPT</span></div>
+            <div class="orbit-item" style="--angle:216deg"><span>Canva</span></div>
+            <div class="orbit-item" style="--angle:288deg"><span>AI</span></div>
+          </div>
+          <div class="orbit orbit-2">
+            <div class="orbit-item" style="--angle:36deg"><span>ChatGPT</span></div>
+            <div class="orbit-item" style="--angle:108deg"><span>Gemini</span></div>
+            <div class="orbit-item" style="--angle:180deg"><span>Copilot</span></div>
+            <div class="orbit-item" style="--angle:252deg"><span>Google</span></div>
+            <div class="orbit-item" style="--angle:324deg"><span>Drive</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== WORK STYLE ========== -->
+  <section class="workstyle section" id="workstyle">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="ws_tag">03 — Work Style</span>
+        <h2 class="section-title">
+          <span data-i18n="ws_title">Phong cách</span>
+          <span class="highlight" data-i18n="ws_highlight">làm việc</span>
+        </h2>
+      </div>
+
+      <div class="workstyle-grid">
+        <div class="ws-card" data-delay="0">
+          <div class="ws-icon"><i class="fa-solid fa-gauge-high"></i></div>
+          <h4 class="ws-title" data-i18n="ws1_title">Nhanh — Đúng hẹn — Kết quả tốt</h4>
+          <p class="ws-desc" data-i18n="ws1_desc">Phong cách làm việc của tôi tập trung vào tốc độ và chất lượng. Deadline là cam kết, không phải lời nhắc nhở.</p>
+        </div>
+        <div class="ws-card" data-delay="100">
+          <div class="ws-icon"><i class="fa-solid fa-people-carry-box"></i></div>
+          <h4 class="ws-title" data-i18n="ws2_title">Teamwork là ưu tiên số 1</h4>
+          <p class="ws-desc" data-i18n="ws2_desc">Tôi thích làm việc nhóm hơn là độc lập — hoà đồng, luôn tiếp thu ý kiến và sẵn sàng dẫn dắt khi cần.</p>
+        </div>
+        <div class="ws-card" data-delay="200">
+          <div class="ws-icon"><i class="fa-solid fa-lightbulb"></i></div>
+          <h4 class="ws-title" data-i18n="ws3_title">Giải quyết vấn đề nhanh chóng</h4>
+          <p class="ws-desc" data-i18n="ws3_desc">Khi gặp sự cố, tôi không đứng yên. Tôi luôn tìm ra hướng giải quyết nhanh nhất và hiệu quả nhất.</p>
+        </div>
+        <div class="ws-card" data-delay="300">
+          <div class="ws-icon"><i class="fa-solid fa-arrows-spin"></i></div>
+          <h4 class="ws-title" data-i18n="ws4_title">Thích nghi cực nhanh</h4>
+          <p class="ws-desc" data-i18n="ws4_desc">Môi trường mới không làm tôi lo lắng — tôi xem đó là cơ hội để học và phát triển thêm.</p>
+        </div>
+        <div class="ws-card" data-delay="400">
+          <div class="ws-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h4 class="ws-title" data-i18n="ws5_title">Tinh thần trách nhiệm cao</h4>
+          <p class="ws-desc" data-i18n="ws5_desc">Công việc được giao là trách nhiệm tôi đặt lên hàng đầu — không đổ lỗi, không thoái thác.</p>
+        </div>
+        <div class="ws-card" data-delay="500">
+          <div class="ws-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <h4 class="ws-title" data-i18n="ws6_title">Quản lý thời gian linh hoạt</h4>
+          <p class="ws-desc" data-i18n="ws6_desc">Xử lý deadline nhanh chóng nhờ kỹ năng lên kế hoạch và phân bổ thời gian hợp lý theo từng ưu tiên.</p>
+        </div>
+      </div>
+
+      <div class="ws-quote">
+        <div class="ws-quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+        <p data-i18n="ws_quote">"Tôi không chỉ hoàn thành công việc — tôi làm cho nó tốt hơn mong đợi."</p>
+        <span>— Tô Quốc Hùng</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== ACTIVITIES & ACHIEVEMENTS ========== -->
+  <section class="activities section" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="act_tag">04 — Activities</span>
+        <h2 class="section-title">
+          <span data-i18n="act_title">Hoạt động &amp;</span>
+          <span class="highlight" data-i18n="act_highlight">Thành tích</span>
+        </h2>
+      </div>
+
+      <div class="projects-grid">
+
+        <div class="project-card" data-tilt>
+          <div class="project-card-bg"></div>
+          <div class="project-content">
+            <div class="project-number">01</div>
+            <div class="project-icon"><i class="fa-solid fa-basketball"></i></div>
+            <h3 class="project-title" data-i18n="act1_title">Huấn luyện viên Bóng rổ</h3>
+            <p class="project-desc" data-i18n="act1_desc">Thiết kế chương trình huấn luyện toàn diện giúp trẻ phát triển thể chất — tăng chiều cao, cơ bắp và sự nhanh nhẹn. Dẫn dắt đội thi đấu đạt nhiều thành tích ấn tượng, xây dựng tinh thần đội nhóm và kỷ luật thi đấu chuyên nghiệp. Giao tiếp tốt bằng tiếng Anh trong môi trường huấn luyện quốc tế.</p>
+            <div class="project-tags">
+              <span data-i18n="act1_date">2023 — 2026</span>
+              <span data-i18n="tag_coaching">Coaching</span>
+              <span data-i18n="tag_leadership">Lãnh đạo</span>
+              <span>English</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-tilt>
+          <div class="project-card-bg"></div>
+          <div class="project-content">
+            <div class="project-number">02</div>
+            <div class="project-icon"><i class="fa-solid fa-landmark"></i></div>
+            <h3 class="project-title" data-i18n="act2_title">Uỷ viên BCH — Khoa QTKD · HUFLIT</h3>
+            <p class="project-desc" data-i18n="act2_desc">Đảm nhận vai trò Uỷ viên Ban Chấp hành Khoa Quản trị Kinh doanh — HUFLIT. Tham gia hoạch định, tổ chức và điều phối các hoạt động khoa — cầu nối giữa sinh viên và ban lãnh đạo, thúc đẩy tinh thần học thuật và cộng đồng khoa.</p>
+            <div class="project-tags">
+              <span data-i18n="act2_date">2023 — 2024</span>
+              <span>HUFLIT</span>
+              <span data-i18n="tag_org">Tổ chức</span>
+              <span>QTKD</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-tilt>
+          <div class="project-card-bg"></div>
+          <div class="project-content">
+            <div class="project-number">03</div>
+            <div class="project-icon"><i class="fa-solid fa-gamepad"></i></div>
+            <h3 class="project-title" data-i18n="act3_title">Phó Chủ nhiệm · ESC HUFLIT</h3>
+            <p class="project-desc" data-i18n="act3_desc">Phụ trách training đội tuyển, xây dựng giáo án và lộ trình phát triển chuyên môn cho thành viên. Lên kế hoạch & điều hành toàn bộ quy trình tổ chức các giải đấu nội bộ và liên trường (5v5, Road to VCS,...). CLB đạt cú đúp danh hiệu tại các giải Esports sinh viên quy mô lớn.</p>
+            <div class="project-tags">
+              <span data-i18n="act3_date">2025 — 2026</span>
+              <span>Esports</span>
+              <span data-i18n="tag_event">Tổ chức giải</span>
+              <span>ESC HUFLIT</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section class="contact section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="contact_tag">05 — Contact</span>
+        <h2 class="section-title">
+          <span data-i18n="contact_title">Liên</span>
+          <span class="highlight" data-i18n="contact_highlight">hệ</span>
+        </h2>
+      </div>
+
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <p class="contact-intro" data-i18n-html="contact_intro">
+            Một người trẻ với nền tảng Logistics, kinh nghiệm dẫn dắt đội nhóm trong thể thao và Esports,<br>luôn đặt kế hoạch lên trước — hành động đúng lúc — và không ngừng học hỏi để phát triển.<br>Nếu bạn cần một người đồng hành nghiêm túc, hãy để lại lời nhắn.
+          </p>
+          <p class="contact-sign" data-i18n="contact_sign">— Tô Quốc Hùng</p>
+          <div class="contact-items">
+            <a href="mailto:tohungg2005@gmail.com" class="contact-item">
+              <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <span class="contact-item-label" data-i18n="contact_label_email">Email</span>
+                <span class="contact-item-value">tohungg2005@gmail.com</span>
+              </div>
+            </a>
+            <a href="https://fb.com/hung.to05" target="_blank" class="contact-item">
+              <div class="contact-item-icon"><i class="fa-brands fa-facebook"></i></div>
+              <div>
+                <span class="contact-item-label" data-i18n="contact_label_fb">Facebook</span>
+                <span class="contact-item-value">fb.com/hung.to05</span>
+              </div>
+            </a>
+            <a href="tel:0941428859" class="contact-item">
+              <div class="contact-item-icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <span class="contact-item-label" data-i18n="contact_label_phone">Điện thoại</span>
+                <span class="contact-item-value">0941 428 859</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name" data-i18n="form_name">Tên của bạn</label>
+            <input type="text" id="name" name="name" data-i18n-placeholder="form_placeholder_name" placeholder="Nguyễn Văn A" required />
+          </div>
+          <div class="form-group">
+            <label for="email" data-i18n="form_email">Email</label>
+            <input type="email" id="email" name="email" placeholder="email@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="subject" data-i18n="form_subject">Chủ đề</label>
+            <select id="subject" name="subject">
+              <option value=""          data-i18n="form_opt0">Chọn chủ đề...</option>
+              <option value="coaching"  data-i18n="form_opt1">Basketball Coaching</option>
+              <option value="esports"   data-i18n="form_opt2">Esports & CLB</option>
+              <option value="collab"    data-i18n="form_opt3">Hợp tác & Kết nối</option>
+              <option value="other"     data-i18n="form_opt4">Khác</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message" data-i18n="form_message">Lời nhắn</label>
+            <textarea id="message" name="message" rows="5" data-i18n-placeholder="form_placeholder_message" placeholder="Nội dung bạn muốn chia sẻ..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">
+            <span data-i18n="form_btn">Gửi lời nhắn</span>
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-bracket">&lt;</span>TÔ QUỐC HÙNG<span class="logo-bracket">/&gt;</span>
+        </div>
+        <p class="footer-text">
+          <span data-i18n="footer_text">Built with</span>
+          <span class="heart">♥</span> and lots of <span class="code-tag">&lt;code/&gt;</span>
+        </p>
+        <div class="footer-socials">
+          <a href="mailto:tohungg2005@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://fb.com/hung.to05" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="tel:0941428859" title="Điện thoại"><i class="fa-solid fa-phone"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/translations.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
