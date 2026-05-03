@@ -1568,6 +1568,176 @@ img { max-width: 100%; }
 }
 
 /* ============================================================
+   FEEDBACK
+   ============================================================ */
+.feedback { background: var(--bg-secondary); }
+
+/* Danh sách feedback */
+.feedback-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  min-height: 80px;
+}
+
+.feedback-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+.feedback-empty i { font-size: 2.5rem; opacity: 0.4; }
+
+/* Feedback card */
+.fb-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: var(--transition);
+  animation: fb-card-in 0.5s ease forwards;
+}
+@keyframes fb-card-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fb-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+.fb-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.fb-card-author {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.fb-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.fb-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fb-role {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-code);
+}
+
+.fb-stars {
+  display: flex;
+  gap: 2px;
+}
+.fb-stars i {
+  font-size: 0.85rem;
+  color: #fbbf24;
+}
+.fb-stars i.empty { color: var(--text-muted); opacity: 0.3; }
+
+.fb-comment {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-style: italic;
+}
+.fb-comment::before { content: '"'; color: var(--accent); font-size: 1.2rem; line-height: 0; vertical-align: -0.3rem; margin-right: 2px; }
+.fb-comment::after  { content: '"'; color: var(--accent); font-size: 1.2rem; line-height: 0; vertical-align: -0.3rem; margin-left: 2px; }
+
+.fb-date {
+  margin-top: 0.8rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--font-code);
+}
+
+/* Form gửi feedback */
+.feedback-form-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+}
+
+.feedback-form-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+  color: var(--text-primary);
+}
+
+.fb-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+/* Star rating input */
+.star-rating {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.star {
+  font-size: 1.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s ease;
+  opacity: 0.4;
+}
+
+.star:hover,
+.star.active {
+  color: #fbbf24;
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.fb-success-msg {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--accent-2);
+  font-weight: 600;
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .fb-form-row { grid-template-columns: 1fr; }
+  .feedback-form-wrapper { padding: 1.5rem; }
+}
+
+/* ============================================================
    GSAP animation helpers
    ============================================================ */
 [data-gsap="fadeUp"] {
@@ -1609,22 +1779,25 @@ img { max-width: 100%; }
   .about-grid {
     grid-template-columns: 1fr;
     justify-items: center;
+    gap: 2.5rem;
   }
 
   .about-visual {
     display: flex;
     justify-content: center;
+    order: -1; /* avatar lên trên */
   }
 
   .card-3d {
-    width: 260px;
-    height: 320px;
+    width: 220px;
+    height: 270px;
   }
 
-  /* Badges nằm gọn vào trong card trên mobile */
-  .card-badge-1 { right: -10%; top: -3%; }
-  .card-badge-2 { left: -10%; bottom: 22%; }
-  .card-badge-3 { right: -10%; bottom: 2%; }
+  /* Badges gọn lại, không tràn màn hình */
+  .card-badge { font-size: 0.72rem; padding: 0.4rem 0.75rem; }
+  .card-badge-1 { right: -5%; top: -3%; }
+  .card-badge-2 { left: -5%; bottom: 22%; }
+  .card-badge-3 { right: -5%; bottom: 2%; }
 
   .contact-wrapper { grid-template-columns: 1fr; gap: 3rem; }
 }
@@ -1677,4 +1850,17 @@ img { max-width: 100%; }
   .section { padding: 5rem 0; }
   .hero-cta { flex-direction: column; }
   .btn { width: 100%; justify-content: center; }
+
+  /* Avatar nhỏ hơn nữa trên điện thoại nhỏ */
+  .card-3d { width: 180px; height: 230px; }
+  .card-badge { font-size: 0.65rem; padding: 0.3rem 0.6rem; gap: 0.35rem; }
+  .card-badge-1 { right: 0%; top: -2%; }
+  .card-badge-2 { left: 0%; bottom: 20%; }
+  .card-badge-3 { right: 0%; bottom: 1%; }
+
+  /* About text căn giữa trên mobile */
+  .about-name-row { justify-content: center; flex-direction: column; align-items: center; gap: 0.4rem; }
+  .about-strengths { justify-content: center; }
+  .about-stats { justify-content: center; }
+  .about-links { justify-content: center; }
 }

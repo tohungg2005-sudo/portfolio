@@ -122,6 +122,22 @@ const translations = {
     form_placeholder_message: 'Nội dung bạn muốn chia sẻ...',
     form_btn:      'Gửi lời nhắn',
 
+    /* FEEDBACK */
+    nav_feedback:        'Feedback',
+    fb_tag:              '06 — Feedback',
+    fb_title:            'Nhận xét từ',
+    fb_highlight:        'đồng nghiệp',
+    fb_empty:            'Chưa có nhận xét nào. Hãy là người đầu tiên!',
+    fb_form_title:       'Để lại nhận xét của bạn',
+    fb_label_name:       'Họ tên *',
+    fb_label_role:       'Vai trò / Mối quan hệ',
+    fb_label_rating:     'Đánh giá *',
+    fb_label_comment:    'Nhận xét *',
+    fb_placeholder_name: 'Nguyễn Văn A',
+    fb_placeholder_role: 'Ví dụ: Đồng đội, Giáo viên...',
+    fb_placeholder_comment: 'Chia sẻ trải nghiệm của bạn khi làm việc cùng Hùng...',
+    fb_btn:              'Gửi nhận xét',
+
     /* FOOTER */
     footer_text:   'Built with',
   },
@@ -245,6 +261,22 @@ const translations = {
     form_placeholder_name:    'John Doe',
     form_placeholder_message: 'What would you like to share...',
     form_btn:      'Send Message',
+
+    /* FEEDBACK */
+    nav_feedback:        'Feedback',
+    fb_tag:              '06 — Feedback',
+    fb_title:            'Reviews from',
+    fb_highlight:        'colleagues',
+    fb_empty:            'No reviews yet. Be the first one!',
+    fb_form_title:       'Leave your review',
+    fb_label_name:       'Full name *',
+    fb_label_role:       'Role / Relationship',
+    fb_label_rating:     'Rating *',
+    fb_label_comment:    'Comment *',
+    fb_placeholder_name: 'John Doe',
+    fb_placeholder_role: 'e.g. Teammate, Teacher...',
+    fb_placeholder_comment: 'Share your experience working with Hung...',
+    fb_btn:              'Submit review',
 
     /* FOOTER */
     footer_text:   'Built with',

@@ -488,34 +488,201 @@ const counterObserver = new IntersectionObserver(entries => {
 counters.forEach(c => counterObserver.observe(c));
 
 /* ============================================================
-   11. CONTACT FORM (demo submit)
+   11. CONTACT FORM — EmailJS
+   Cần điền 3 giá trị bên dưới sau khi tạo tài khoản EmailJS:
+   https://www.emailjs.com/
    ============================================================ */
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // Account > API Keys > Public Key
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // Email Services > Service ID
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // Email Templates > Template ID
+
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', e => {
     e.preventDefault();
     const btn = contactForm.querySelector('button[type="submit"]');
-    const originalText = btn.innerHTML;
+    const originalHTML = btn.innerHTML;
+
+    // Validate
+    const name    = contactForm.querySelector('#name').value.trim();
+    const email   = contactForm.querySelector('#email').value.trim();
+    const message = contactForm.querySelector('#message').value.trim();
+    if (!name || !email || !message) return;
 
     btn.innerHTML = '<span>Đang gửi...</span><i class="fa-solid fa-spinner fa-spin"></i>';
     btn.disabled = true;
 
-    setTimeout(() => {
-      btn.innerHTML = '<span>Gửi thành công!</span><i class="fa-solid fa-check"></i>';
-      btn.style.background = 'linear-gradient(135deg, #00d4ff, #6c63ff)';
+    const templateParams = {
+      from_name:    name,
+      from_email:   email,
+      subject:      contactForm.querySelector('#subject').value || 'Không có chủ đề',
+      message:      message,
+      to_email:     'tohungg2005@gmail.com',
+    };
 
-      setTimeout(() => {
-        btn.innerHTML = originalText;
-        btn.style.background = '';
-        btn.disabled = false;
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(() => {
+        btn.innerHTML = '<span>Gửi thành công!</span><i class="fa-solid fa-check"></i>';
+        btn.style.background = 'linear-gradient(135deg, #00d4ff, #6c63ff)';
         contactForm.reset();
-      }, 3000);
-    }, 1500);
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 3000);
+      })
+      .catch(err => {
+        console.error('EmailJS error:', err);
+        btn.innerHTML = '<span>Gửi thất bại, thử lại!</span><i class="fa-solid fa-xmark"></i>';
+        btn.style.background = 'linear-gradient(135deg, #ff6584, #ff4444)';
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 3000);
+      });
   });
 }
 
 /* ============================================================
-   12. SMOOTH SCROLL for anchor links
+   12. FEEDBACK SECTION
+   ============================================================ */
+(function () {
+  const STORAGE_KEY = 'portfolio_feedbacks';
+
+  // Load từ localStorage
+  function loadFeedbacks() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveFeedbacks(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  }
+
+  // Render sao hiển thị
+  function renderStars(rating) {
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+      html += `<i class="fa-solid fa-star${i > rating ? ' empty' : ''}"></i>`;
+    }
+    return html;
+  }
+
+  // Tạo card feedback
+  function createCard(fb) {
+    const initials = fb.name.trim().split(' ').map(w => w[0]).slice(-2).join('').toUpperCase();
+    const date = new Date(fb.timestamp).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const card = document.createElement('div');
+    card.className = 'fb-card';
+    card.innerHTML = `
+      <div class="fb-card-header">
+        <div class="fb-card-author">
+          <div class="fb-avatar">${initials}</div>
+          <div>
+            <div class="fb-name">${escHtml(fb.name)}</div>
+            ${fb.role ? `<div class="fb-role">${escHtml(fb.role)}</div>` : ''}
+          </div>
+        </div>
+        <div class="fb-stars">${renderStars(fb.rating)}</div>
+      </div>
+      <p class="fb-comment">${escHtml(fb.comment)}</p>
+      <div class="fb-date">${date}</div>
+    `;
+    return card;
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // Render toàn bộ danh sách
+  function renderAll() {
+    const list = loadFeedbacks();
+    const container = document.getElementById('feedbackList');
+    const empty = document.getElementById('feedbackEmpty');
+    if (!container) return;
+
+    // Xóa các card cũ (giữ lại empty placeholder)
+    container.querySelectorAll('.fb-card').forEach(c => c.remove());
+
+    if (list.length === 0) {
+      if (empty) empty.style.display = 'flex';
+    } else {
+      if (empty) empty.style.display = 'none';
+      list.slice().reverse().forEach(fb => {
+        container.prepend(createCard(fb));
+      });
+    }
+  }
+
+  // Star rating input
+  let selectedRating = 0;
+  const stars = document.querySelectorAll('#starRating .star');
+  const ratingInput = document.getElementById('fbRating');
+
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      const val = parseInt(star.dataset.value);
+      stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.value) <= val));
+    });
+    star.addEventListener('mouseleave', () => {
+      stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.value) <= selectedRating));
+    });
+    star.addEventListener('click', () => {
+      selectedRating = parseInt(star.dataset.value);
+      if (ratingInput) ratingInput.value = selectedRating;
+      stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.value) <= selectedRating));
+    });
+  });
+
+  // Submit feedback
+  const feedbackForm = document.getElementById('feedbackForm');
+  if (feedbackForm) {
+    feedbackForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const name    = document.getElementById('fbName').value.trim();
+      const role    = document.getElementById('fbRole').value.trim();
+      const comment = document.getElementById('fbComment').value.trim();
+      const rating  = parseInt(document.getElementById('fbRating').value);
+
+      if (!name || !comment || rating < 1) {
+        if (rating < 1) {
+          document.getElementById('starRating').style.outline = '2px solid var(--accent-3)';
+          document.getElementById('starRating').style.borderRadius = '4px';
+          setTimeout(() => { document.getElementById('starRating').style.outline = ''; }, 2000);
+        }
+        return;
+      }
+
+      const list = loadFeedbacks();
+      list.push({ name, role, comment, rating, timestamp: Date.now() });
+      saveFeedbacks(list);
+
+      renderAll();
+      feedbackForm.reset();
+      selectedRating = 0;
+      if (ratingInput) ratingInput.value = 0;
+      stars.forEach(s => s.classList.remove('active'));
+
+      // Flash success
+      const btn = feedbackForm.querySelector('button[type="submit"]');
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<span>Đã gửi!</span><i class="fa-solid fa-check"></i>';
+      btn.style.background = 'linear-gradient(135deg, #00d4ff, #6c63ff)';
+      btn.disabled = true;
+      setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; btn.disabled = false; }, 2500);
+    });
+  }
+
+  // Init
+  renderAll();
+})();
+
+/* ============================================================
+   13. SMOOTH SCROLL for anchor links
    ============================================================ */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', e => {
