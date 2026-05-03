@@ -492,9 +492,9 @@ counters.forEach(c => counterObserver.observe(c));
    Cần điền 3 giá trị bên dưới sau khi tạo tài khoản EmailJS:
    https://www.emailjs.com/
    ============================================================ */
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // Account > API Keys > Public Key
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // Email Services > Service ID
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // Email Templates > Template ID
+const EMAILJS_PUBLIC_KEY  = 'C6WRShpQ0LuH1YmTJ';
+const EMAILJS_SERVICE_ID  = 'service_9u1df1a';
+const EMAILJS_TEMPLATE_ID = 'template_f1qwdp5';
 
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
@@ -519,7 +519,7 @@ if (contactForm) {
       from_email:   email,
       subject:      contactForm.querySelector('#subject').value || 'Không có chủ đề',
       message:      message,
-      to_email:     'tohungg2005@gmail.com',
+      to_email:     'hungtq.working@gmail.com',
     };
 
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
