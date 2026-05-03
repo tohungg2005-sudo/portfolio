@@ -1606,8 +1606,25 @@ img { max-width: 100%; }
   .workstyle-grid,
   .achieve-grid { grid-template-columns: repeat(2, 1fr); }
 
-  .about-grid { grid-template-columns: 1fr; }
-  .about-visual { display: none; }
+  .about-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .about-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .card-3d {
+    width: 260px;
+    height: 320px;
+  }
+
+  /* Badges nằm gọn vào trong card trên mobile */
+  .card-badge-1 { right: -10%; top: -3%; }
+  .card-badge-2 { left: -10%; bottom: 22%; }
+  .card-badge-3 { right: -10%; bottom: 2%; }
 
   .contact-wrapper { grid-template-columns: 1fr; gap: 3rem; }
 }
